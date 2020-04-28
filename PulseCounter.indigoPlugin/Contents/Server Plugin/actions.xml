@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<Actions>
+	<Action id="pulse" deviceFilter="self">
+		<Name>Increase counter</Name>
+		<CallbackMethod>pulseInc</CallbackMethod>
+	</Action>
+</Actions>

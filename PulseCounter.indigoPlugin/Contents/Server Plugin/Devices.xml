@@ -13,15 +13,15 @@
 		<States>
 			<State id="displayState"><ValueType>String</ValueType><TriggerLabel>displayState</TriggerLabel><ControlPageLabel>displayState</ControlPageLabel></State>
 			<State id="hourCurrent"><ValueType>String</ValueType><TriggerLabel>hourCurrent</TriggerLabel><ControlPageLabel>hourCurrent</ControlPageLabel></State>
-			<State id="hourMinus1"><ValueType>String</ValueType><TriggerLabel>hourMinus1</TriggerLabel><ControlPageLabel>hourMinus1</ControlPageLabel></State>
-			<State id="hourMinus2"><ValueType>String</ValueType><TriggerLabel>hourMinus2</TriggerLabel><ControlPageLabel>hourMinus2</ControlPageLabel></State>
-			<State id="hourMinus3"><ValueType>String</ValueType><TriggerLabel>hourMinus3</TriggerLabel><ControlPageLabel>hourMinus3</ControlPageLabel></State>
-			<State id="hourMinus4"><ValueType>String</ValueType><TriggerLabel>hourMinus4</TriggerLabel><ControlPageLabel>hourMinus4</ControlPageLabel></State>
-			<State id="hourMinus5"><ValueType>String</ValueType><TriggerLabel>hourMinus5</TriggerLabel><ControlPageLabel>hourMinus5</ControlPageLabel></State>
-			<State id="hourMinus6"><ValueType>String</ValueType><TriggerLabel>hourMinus6</TriggerLabel><ControlPageLabel>hourMinus6</ControlPageLabel></State>
-			<State id="hourMinus7"><ValueType>String</ValueType><TriggerLabel>hourMinus7</TriggerLabel><ControlPageLabel>hourMinus7</ControlPageLabel></State>
-			<State id="hourMinus8"><ValueType>String</ValueType><TriggerLabel>hourMinus8</TriggerLabel><ControlPageLabel>hourMinus8</ControlPageLabel></State>
-			<State id="hourMinus9"><ValueType>String</ValueType><TriggerLabel>hourMinus9</TriggerLabel><ControlPageLabel>hourMinus9</ControlPageLabel></State>
+			<State id="hourMinus01"><ValueType>String</ValueType><TriggerLabel>hourMinus01</TriggerLabel><ControlPageLabel>hourMinus01</ControlPageLabel></State>
+			<State id="hourMinus02"><ValueType>String</ValueType><TriggerLabel>hourMinus02</TriggerLabel><ControlPageLabel>hourMinus02</ControlPageLabel></State>
+			<State id="hourMinus03"><ValueType>String</ValueType><TriggerLabel>hourMinus03</TriggerLabel><ControlPageLabel>hourMinus03</ControlPageLabel></State>
+			<State id="hourMinus04"><ValueType>String</ValueType><TriggerLabel>hourMinus04</TriggerLabel><ControlPageLabel>hourMinus04</ControlPageLabel></State>
+			<State id="hourMinus05"><ValueType>String</ValueType><TriggerLabel>hourMinus05</TriggerLabel><ControlPageLabel>hourMinus05</ControlPageLabel></State>
+			<State id="hourMinus06"><ValueType>String</ValueType><TriggerLabel>hourMinus06</TriggerLabel><ControlPageLabel>hourMinus06</ControlPageLabel></State>
+			<State id="hourMinus07"><ValueType>String</ValueType><TriggerLabel>hourMinus07</TriggerLabel><ControlPageLabel>hourMinus07</ControlPageLabel></State>
+			<State id="hourMinus08"><ValueType>String</ValueType><TriggerLabel>hourMinus08</TriggerLabel><ControlPageLabel>hourMinus08</ControlPageLabel></State>
+			<State id="hourMinus09"><ValueType>String</ValueType><TriggerLabel>hourMinus09</TriggerLabel><ControlPageLabel>hourMinus09</ControlPageLabel></State>
 			<State id="hourMinus10"><ValueType>String</ValueType><TriggerLabel>hourMinus10</TriggerLabel><ControlPageLabel>hourMinus10</ControlPageLabel></State>
 			<State id="hourMinus11"><ValueType>String</ValueType><TriggerLabel>hourMinus11</TriggerLabel><ControlPageLabel>hourMinus11</ControlPageLabel></State>
 			<State id="hourMinus12"><ValueType>String</ValueType><TriggerLabel>hourMinus12</TriggerLabel><ControlPageLabel>hourMinus12</ControlPageLabel></State>

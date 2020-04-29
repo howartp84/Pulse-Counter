@@ -4,4 +4,9 @@
 		<Name>Increase counter</Name>
 		<CallbackMethod>pulseInc</CallbackMethod>
 	</Action>
+	
+	<Action id="reset" deviceFilter="self">
+		<Name>Reset counter</Name>
+		<CallbackMethod>doReset</CallbackMethod>
+	</Action>
 </Actions>

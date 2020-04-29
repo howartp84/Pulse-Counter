@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <PluginConfig>
-	<Field id="label" type="label">
+	<Field id="label1" type="label">
 		<Label>How often should the values refresh in the UI? </Label>
 	</Field>
 	<Field id="sleepTime" type="textfield" defaultValue="10">
 		<Label>Number of seconds:</Label>
 	</Field>
-	<Field id="label" type="label">
+	<Field id="label2" type="label">
 		<Label>The default is every 10 seconds to prevent overloading Indigo. It continues counting in the background regardless of this setting.</Label>
 	</Field>
 </PluginConfig>

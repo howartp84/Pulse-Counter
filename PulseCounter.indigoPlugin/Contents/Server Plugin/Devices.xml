@@ -124,12 +124,41 @@
 			<State id="day29"><ValueType>Number</ValueType><TriggerLabel>day29</TriggerLabel><ControlPageLabel>day29</ControlPageLabel></State>
 			<State id="day30"><ValueType>Number</ValueType><TriggerLabel>day30</TriggerLabel><ControlPageLabel>day30</ControlPageLabel></State>
 			<State id="day31"><ValueType>Number</ValueType><TriggerLabel>day31</TriggerLabel><ControlPageLabel>day31</ControlPageLabel></State>
-			<State id="hourlyAverage"><ValueType>Number</ValueType><TriggerLabel>hourlyAverage</TriggerLabel><ControlPageLabel>hourlyAverage</ControlPageLabel></State>
-			<State id="dailyAverage"><ValueType>Number</ValueType><TriggerLabel>dailyAverage</TriggerLabel><ControlPageLabel>dailyAverage</ControlPageLabel></State>
-			<State id="monthlyAverage"><ValueType>Number</ValueType><TriggerLabel>monthlyAverage</TriggerLabel><ControlPageLabel>monthlyAverage</ControlPageLabel></State>
+			<State id="monthMinus12"><ValueType>Number</ValueType><TriggerLabel>monthMinus12</TriggerLabel><ControlPageLabel>monthMinus12</ControlPageLabel></State>
+			<State id="monthMinus11"><ValueType>Number</ValueType><TriggerLabel>monthMinus11</TriggerLabel><ControlPageLabel>monthMinus11</ControlPageLabel></State>
+			<State id="monthMinus10"><ValueType>Number</ValueType><TriggerLabel>monthMinus10</TriggerLabel><ControlPageLabel>monthMinus10</ControlPageLabel></State>
+			<State id="monthMinus9"><ValueType>Number</ValueType><TriggerLabel>monthMinus9</TriggerLabel><ControlPageLabel>monthMinus9</ControlPageLabel></State>
+			<State id="monthMinus8"><ValueType>Number</ValueType><TriggerLabel>monthMinus8</TriggerLabel><ControlPageLabel>monthMinus8</ControlPageLabel></State>
+			<State id="monthMinus7"><ValueType>Number</ValueType><TriggerLabel>monthMinus7</TriggerLabel><ControlPageLabel>monthMinus7</ControlPageLabel></State>
+			<State id="monthMinus6"><ValueType>Number</ValueType><TriggerLabel>monthMinus6</TriggerLabel><ControlPageLabel>monthMinus6</ControlPageLabel></State>
+			<State id="monthMinus5"><ValueType>Number</ValueType><TriggerLabel>monthMinus5</TriggerLabel><ControlPageLabel>monthMinus5</ControlPageLabel></State>
+			<State id="monthMinus4"><ValueType>Number</ValueType><TriggerLabel>monthMinus4</TriggerLabel><ControlPageLabel>monthMinus4</ControlPageLabel></State>
+			<State id="monthMinus3"><ValueType>Number</ValueType><TriggerLabel>monthMinus3</TriggerLabel><ControlPageLabel>monthMinus3</ControlPageLabel></State>
+			<State id="monthMinus2"><ValueType>Number</ValueType><TriggerLabel>monthMinus2</TriggerLabel><ControlPageLabel>monthMinus2</ControlPageLabel></State>
+			<State id="monthMinus1"><ValueType>Number</ValueType><TriggerLabel>monthMinus1</TriggerLabel><ControlPageLabel>monthMinus1</ControlPageLabel></State>
+			<State id="monthCurrent"><ValueType>Number</ValueType><TriggerLabel>monthCurrent</TriggerLabel><ControlPageLabel>monthCurrent</ControlPageLabel></State>
+			<State id="month01"><ValueType>Number</ValueType><TriggerLabel>month01</TriggerLabel><ControlPageLabel>month01</ControlPageLabel></State>
+			<State id="month02"><ValueType>Number</ValueType><TriggerLabel>month02</TriggerLabel><ControlPageLabel>month02</ControlPageLabel></State>
+			<State id="month03"><ValueType>Number</ValueType><TriggerLabel>month03</TriggerLabel><ControlPageLabel>month03</ControlPageLabel></State>
+			<State id="month04"><ValueType>Number</ValueType><TriggerLabel>month04</TriggerLabel><ControlPageLabel>month04</ControlPageLabel></State>
+			<State id="month05"><ValueType>Number</ValueType><TriggerLabel>month05</TriggerLabel><ControlPageLabel>month05</ControlPageLabel></State>
+			<State id="month06"><ValueType>Number</ValueType><TriggerLabel>month06</TriggerLabel><ControlPageLabel>month06</ControlPageLabel></State>
+			<State id="month07"><ValueType>Number</ValueType><TriggerLabel>month07</TriggerLabel><ControlPageLabel>month07</ControlPageLabel></State>
+			<State id="month08"><ValueType>Number</ValueType><TriggerLabel>month08</TriggerLabel><ControlPageLabel>month08</ControlPageLabel></State>
+			<State id="month09"><ValueType>Number</ValueType><TriggerLabel>month09</TriggerLabel><ControlPageLabel>month09</ControlPageLabel></State>
+			<State id="month10"><ValueType>Number</ValueType><TriggerLabel>month10</TriggerLabel><ControlPageLabel>month10</ControlPageLabel></State>
+			<State id="month11"><ValueType>Number</ValueType><TriggerLabel>month11</TriggerLabel><ControlPageLabel>month11</ControlPageLabel></State>
+			<State id="month12"><ValueType>Number</ValueType><TriggerLabel>month12</TriggerLabel><ControlPageLabel>month12</ControlPageLabel></State>
+			<State id="averageHourlyToday"><ValueType>Number</ValueType><TriggerLabel>averageHourlyToday</TriggerLabel><ControlPageLabel>averageHourlyToday</ControlPageLabel></State>
+			<State id="averageHourly24Hours"><ValueType>Number</ValueType><TriggerLabel>averageHourly24Hours</TriggerLabel><ControlPageLabel>averageHourly24Hours</ControlPageLabel></State>
+			<State id="averageDailyThisMonth"><ValueType>Number</ValueType><TriggerLabel>averageDailyThisMonth</TriggerLabel><ControlPageLabel>averageDailyThisMonth</ControlPageLabel></State>
+			<State id="averageDaily31Days"><ValueType>Number</ValueType><TriggerLabel>averageDaily31Days</TriggerLabel><ControlPageLabel>averageDaily31Days</ControlPageLabel></State>
+			<State id="averageMonthlyAverage"><ValueType>Number</ValueType><TriggerLabel>averageMonthlyAverage</TriggerLabel><ControlPageLabel>averageMonthlyAverage</ControlPageLabel></State>
 			<State id="hourOfDay"><ValueType>Number</ValueType><TriggerLabel>hourOfDay</TriggerLabel><ControlPageLabel>hourOfDay</ControlPageLabel></State>
 			<State id="dayOfMonth"><ValueType>Number</ValueType><TriggerLabel>dayOfMonth</TriggerLabel><ControlPageLabel>dayOfMonth</ControlPageLabel></State>
 			<State id="monthOfYear"><ValueType>Number</ValueType><TriggerLabel>monthOfYear</TriggerLabel><ControlPageLabel>monthOfYear</ControlPageLabel></State>
+			<State id="startedOn"><ValueType>Number</ValueType><TriggerLabel>startedOn</TriggerLabel><ControlPageLabel>startedOn</ControlPageLabel></State>
+			<State id="daysRunning"><ValueType>Number</ValueType><TriggerLabel>daysRunning</TriggerLabel><ControlPageLabel>daysRunning</ControlPageLabel></State>
 		</States>
 		<UiDisplayStateId>displayState</UiDisplayStateId>
 	</Device>

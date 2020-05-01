@@ -45,6 +45,9 @@ class Plugin(indigo.PluginBase):
 		#self.resetCounters(dev) #No! Stupid idea!
 		self.curPulses[dev.id] = int(dev.states['hourCurrent'])
 		#self.timeSinceReset[dev.id] = 0
+		#dev.updateStateOnServer("day29",128) #182
+		#dev.updateStateOnServer("day01",1303) #1303
+		#dev.updateStateOnServer("day02",0) #0
 
 	def deviceStopComm(self, dev):
 		dev.updateStateOnServer("hourCurrent",self.curPulses[dev.id])
@@ -171,7 +174,8 @@ class Plugin(indigo.PluginBase):
 		{"key":"day28","value":0},
 		{"key":"day29","value":0},
 		{"key":"day30","value":0},
-		{"key":"day31","value":0}
+		{"key":"day31","value":0},
+		{"key":"startedOn","value":0}
 		]
 		dev.updateStatesOnServer(key_value_list)
 		stateToDisplay = dev.ownerProps.get("stateToDisplay","")
@@ -206,50 +210,72 @@ class Plugin(indigo.PluginBase):
 				self.dayOfMonthState = "day" + self.dayOfMonth
 			
 				for d in indigo.devices.iter("self.counter"):
-					#self.timeSinceReset[d.id] = self.timeSinceReset[d.id] + 10
 					
-					#dayPulses = int(d.states["dayCurrent"]) + int(self.curPulses[d.id])
+					if int(d.states["startedOn"]) == 0:
+						d.updateStateOnServer("startedOn",29) #Start counting days since we've been running
+						startedOn = 29
+					elif int(d.states["startedOn"]) <= int(self.dayOfMonth):
+						d.updateStateOnServer("startedOn",999) #Disable after 1 month
+						startedOn = 999
+					else:
+						startedOn = int(d.states["startedOn"])
+						
 					
 					dayPulses = 0 #Init
 					monthPulses = 0 #Init
-					dayAvg = 0 #Init
-					dayAvg24 = 0 #Init
+					month31Pulses = 0 #Init
+					hourAvg = 0 #Init
+					hourAvg24 = 0 #Init
+					dayAvgThisMonth = 0 #Init
+					dayAvg31Days = 0 #Init
+					daysRunningCount = 1 #Init inc today
 					
-					#for di in range(int(self.hourOfDay)): #From midnight until current hourOfDay
-						#di = str(di)
-						#self.debugLog(str("%s (%s): %s" % (di,di.zfill(2),"hour" + di.zfill(2))))
-						#dayPulses = dayPulses + int(d.states["hour" + di.zfill(2)])
+					daysLastMonth = 30 #TODO
 					
-					
-					for mi in range(int(self.dayOfMonth)-1): #From 0th to dayOfMonth - 1
-						mi = str(mi+1)
-						#self.debugLog(str("%s (%s): %s" % (mi,mi.zfill(2),"day" + mi.zfill(2))))
-						monthPulses = monthPulses + int(d.states["day" + mi.zfill(2)])
-					
-					for di2 in range(23):
-						di3 = str(di2)
-						if di3 < self.hourOfDay:
-							dayPulses = dayPulses + int(d.states["hour" + di2.zfill(2)])
-						dayAvg24 = dayAvg24 + dayPulses+ int(d.states["hour" + di2.zfill(2)])
+					for di in range(24):  #00-23
+						diStr = str(di)
+						if di < int(self.hourOfDay): #Prior to current hour as we add curPulses afterwards
+							dayPulses = dayPulses + int(d.states["hour" + diStr.zfill(2)])
+						#self.debugLog("%s: %s" % (diStr,str(dayPulses)))	
+						hourAvg24 = hourAvg24 + int(d.states["hour" + diStr.zfill(2)])
+
+					for mi in range(31): #From 0th to 30th, +1
+						miNum = mi+1
+						miStr = str(miNum)
+						if miNum < int(self.dayOfMonth): #Prior to current day as we add dayPulses afterwards
+							monthPulses = monthPulses + int(d.states["day" + miStr.zfill(2)])
+							month31Pulses = month31Pulses + int(d.states["day" + miStr.zfill(2)])
+							daysRunningCount = daysRunningCount + 1
+						elif startedOn <= miNum <= daysLastMonth:
+							month31Pulses = month31Pulses + int(d.states["day" + miStr.zfill(2)])
+							daysRunningCount = daysRunningCount + 1
+						dayAvg31Days = dayAvg31Days + int(d.states["day" + miStr.zfill(2)])
 
 
 					dayPulses = dayPulses + int(self.curPulses[d.id])					
 					monthPulses = monthPulses + int(dayPulses)
+					month31Pulses = month31Pulses + int(dayPulses)
 
 					hourAvg = dayPulses / (int(self.hourOfDay)+1) # Total so far / how many hours since midnight
-					dayAvg = monthPulses / int(self.dayOfMonth) # Total so far / how many days into month
+					dayAvgThisMonth = monthPulses / int(self.dayOfMonth) # Total so far / how many days into month
 					
-					dayAvg24 = dayAvg24 / 24
+					hourAvg24 = hourAvg24 / 24
+					dayAvg31Days = month31Pulses / daysRunningCount # Total so far / how many days into month 
+					#dayAvg31 / 31
 					
 					key_list_common = [
 					{"key":"hourCurrent","value":self.curPulses[d.id]},
 					{"key":self.hourOfDayState,"value":self.curPulses[d.id]},
-					{"key":"hourlyAverage","value":hourAvg},
+					{"key":"averageHourlyToday","value":hourAvg},
+					{"key":"averageHourly24Hours","value":hourAvg24},
 					{"key":"dayCurrent","value":dayPulses},
 					{"key":self.dayOfMonthState,"value":dayPulses},
-					{"key":"dailyAverage","value":dayAvg},
+					{"key":"averageDailyThisMonth","value":dayAvgThisMonth},
+					{"key":"averageDaily31Days","value":dayAvg31Days},
+					{"key":"monthCurrent","value":monthPulses},
 					{"key":"hourOfDay","value":self.hourOfDay},
-					{"key":"dayOfMonth","value":self.dayOfMonth}
+					{"key":"dayOfMonth","value":self.dayOfMonth},
+					{"key":"daysRunning","value":daysRunningCount}
 					]
 					
 					#key_value_list = key_list1 + key_list2
@@ -310,16 +336,16 @@ class Plugin(indigo.PluginBase):
 						{"key":"dayMinus13","value":d.states["dayMinus12"]},
 						{"key":"dayMinus12","value":d.states["dayMinus11"]},
 						{"key":"dayMinus11","value":d.states["dayMinus10"]},
-						{"key":"dayMinus10","value":d.states["dayMinus9"]},
-						{"key":"dayMinus9","value":d.states["dayMinus8"]},
-						{"key":"dayMinus8","value":d.states["dayMinus7"]},
-						{"key":"dayMinus7","value":d.states["dayMinus6"]},
-						{"key":"dayMinus6","value":d.states["dayMinus5"]},
-						{"key":"dayMinus5","value":d.states["dayMinus4"]},
-						{"key":"dayMinus4","value":d.states["dayMinus3"]},
-						{"key":"dayMinus3","value":d.states["dayMinus2"]},
-						{"key":"dayMinus2","value":d.states["dayMinus1"]},
-						{"key":"dayMinus1","value":d.states["dayCurrent"]},
+						{"key":"dayMinus10","value":d.states["dayMinus09"]},
+						{"key":"dayMinus09","value":d.states["dayMinus08"]},
+						{"key":"dayMinus08","value":d.states["dayMinus07"]},
+						{"key":"dayMinus07","value":d.states["dayMinus06"]},
+						{"key":"dayMinus06","value":d.states["dayMinus05"]},
+						{"key":"dayMinus05","value":d.states["dayMinus04"]},
+						{"key":"dayMinus04","value":d.states["dayMinus03"]},
+						{"key":"dayMinus03","value":d.states["dayMinus02"]},
+						{"key":"dayMinus02","value":d.states["dayMinus01"]},
+						{"key":"dayMinus01","value":d.states["dayCurrent"]},
 						{"key":"dayCurrent","value":0}
 						]
 						#d.updateStatesOnServer(key_value_list)

@@ -212,23 +212,34 @@ class Plugin(indigo.PluginBase):
 					
 					dayPulses = 0 #Init
 					monthPulses = 0 #Init
+					dayAvg = 0 #Init
+					dayAvg24 = 0 #Init
 					
-					for di in range(int(self.hourOfDay)): #From midnight until current hourOfDay
-						di = str(di)
+					#for di in range(int(self.hourOfDay)): #From midnight until current hourOfDay
+						#di = str(di)
 						#self.debugLog(str("%s (%s): %s" % (di,di.zfill(2),"hour" + di.zfill(2))))
-						dayPulses = dayPulses + int(d.states["hour" + di.zfill(2)])
+						#dayPulses = dayPulses + int(d.states["hour" + di.zfill(2)])
 					
 					
 					for mi in range(int(self.dayOfMonth)-1): #From 0th to dayOfMonth - 1
 						mi = str(mi+1)
 						#self.debugLog(str("%s (%s): %s" % (mi,mi.zfill(2),"day" + mi.zfill(2))))
 						monthPulses = monthPulses + int(d.states["day" + mi.zfill(2)])
+					
+					for di2 in range(23):
+						di3 = str(di2)
+						if di3 < self.hourOfDay:
+							dayPulses = dayPulses + int(d.states["hour" + di2.zfill(2)])
+						dayAvg24 = dayAvg24 + dayPulses+ int(d.states["hour" + di2.zfill(2)])
+
 
 					dayPulses = dayPulses + int(self.curPulses[d.id])					
 					monthPulses = monthPulses + int(dayPulses)
 
-					hourAvg = dayPulses / int(self.hourOfDay) # Total so far / how many hours since midnight
+					hourAvg = dayPulses / (int(self.hourOfDay)+1) # Total so far / how many hours since midnight
 					dayAvg = monthPulses / int(self.dayOfMonth) # Total so far / how many days into month
+					
+					dayAvg24 = dayAvg24 / 24
 					
 					key_list_common = [
 					{"key":"hourCurrent","value":self.curPulses[d.id]},

@@ -212,8 +212,8 @@ class Plugin(indigo.PluginBase):
 				for d in indigo.devices.iter("self.counter"):
 					
 					if int(d.states["startedOn"]) == 0:
-						d.updateStateOnServer("startedOn",29) #Start counting days since we've been running
-						startedOn = 29
+						d.updateStateOnServer("startedOn",0) #Start counting days since we've been running
+						startedOn = int(self.dayOfMonth)
 					elif int(d.states["startedOn"]) <= int(self.dayOfMonth):
 						d.updateStateOnServer("startedOn",999) #Disable after 1 month
 						startedOn = 999

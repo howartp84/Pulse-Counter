@@ -6,8 +6,9 @@
 			<Field id="lstateToDisplay" type="label">
 				<Label>"State to display" allows you to choose which of the many device states to use as the UI device state. The default is the hourCurrent state.</Label>
 			</Field>
-			<Field id="stateToDisplay" type="textfield" defaultValue="hourCurrent">
+			<Field id="stateToDisplay" type="menu" defaultValue="hourCurrent">
 				<Label>State to display:</Label>
+				<List class="self" filter="" method="getStateList" />
 			</Field>
 		</ConfigUI>
 		<States>

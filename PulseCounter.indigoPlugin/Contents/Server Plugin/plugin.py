@@ -28,7 +28,7 @@ class Plugin(indigo.PluginBase):
 		#self.debug = True
 
 		self.fixit = False #For fixing things only!
-		
+
 		self.reset = False
 
 		self.curPulses = dict()
@@ -52,13 +52,22 @@ class Plugin(indigo.PluginBase):
 	def deviceStopComm(self, dev):
 		dev.updateStateOnServer("hourCurrent",self.curPulses[dev.id])
 
+	def getStateList(self, filter=None, valuesDict=dict(), typeId='', targetId=0):
+		stateList = list()
+		self.debugLog(valuesDict)
+		#devId = zint(valuesDict.get(filter,''))
+		#if devId:
+			#for state in indigo.devices[devId].states:
+				#stateList.append((state,state))
+		return stateList
+
 	def pulseInc(self, action, dev):
 		#indigo.server.log("Pulse received: %s" % dev.name)
 		self.curPulses[dev.id] = self.curPulses[dev.id] + 1
-		
+
 	def doReset(self, action, dev):
 		self.resetCounters(dev)
-	
+
 
 	def resetCounters(self,dev):
 		self.curPulses[dev.id] = 0
@@ -181,36 +190,36 @@ class Plugin(indigo.PluginBase):
 		stateToDisplay = dev.ownerProps.get("stateToDisplay","")
 		if (stateToDisplay != ""):
 			dev.updateStateOnServer("displayState",dev.states[stateToDisplay])
-		
+
 
 	def runConcurrentThread(self):
 		try:
 			while True:
-				
+
 				key_list_common = []
 				key_list_hour = []
-				
+
 				newHour = False
 				newDay = False
 
 				if self.fixit: #For fixing things only; not used in normal operation!
 					newHour = True
 					self.fixit = False
-			
-				if self.hourOfDay <> time.strftime("%H"):
+
+				if self.hourOfDay != time.strftime("%H"):
 					newHour = True
-				if self.dayOfMonth <> time.strftime("%d"):
+				if self.dayOfMonth != time.strftime("%d"):
 					newDay = True
-			
+
 				self.hourOfDay = time.strftime("%H")
 				self.dayOfMonth = time.strftime("%d")
 				self.monthOfYear = time.strftime("%m")
-				
+
 				self.hourOfDayState = "hour" + self.hourOfDay
 				self.dayOfMonthState = "day" + self.dayOfMonth
-			
+
 				for d in indigo.devices.iter("self.counter"):
-					
+
 					if int(d.states["startedOn"]) == 0:
 						d.updateStateOnServer("startedOn",0) #Start counting days since we've been running
 						startedOn = int(self.dayOfMonth)
@@ -219,8 +228,8 @@ class Plugin(indigo.PluginBase):
 						startedOn = 999
 					else:
 						startedOn = int(d.states["startedOn"])
-						
-					
+
+
 					dayPulses = 0 #Init
 					monthPulses = 0 #Init
 					month31Pulses = 0 #Init
@@ -229,14 +238,14 @@ class Plugin(indigo.PluginBase):
 					dayAvgThisMonth = 0 #Init
 					dayAvg31Days = 0 #Init
 					daysRunningCount = 1 #Init inc today
-					
+
 					daysLastMonth = 30 #TODO
-					
+
 					for di in range(24):  #00-23
 						diStr = str(di)
 						if di < int(self.hourOfDay): #Prior to current hour as we add curPulses afterwards
 							dayPulses = dayPulses + int(d.states["hour" + diStr.zfill(2)])
-						#self.debugLog("%s: %s" % (diStr,str(dayPulses)))	
+						#self.debugLog("%s: %s" % (diStr,str(dayPulses)))
 						hourAvg24 = hourAvg24 + int(d.states["hour" + diStr.zfill(2)])
 
 					for mi in range(31): #From 0th to 30th, +1
@@ -252,17 +261,17 @@ class Plugin(indigo.PluginBase):
 						dayAvg31Days = dayAvg31Days + int(d.states["day" + miStr.zfill(2)])
 
 
-					dayPulses = dayPulses + int(self.curPulses[d.id])					
+					dayPulses = dayPulses + int(self.curPulses[d.id])
 					monthPulses = monthPulses + int(dayPulses)
 					month31Pulses = month31Pulses + int(dayPulses)
 
 					hourAvg = dayPulses / (int(self.hourOfDay)+1) # Total so far / how many hours since midnight
 					dayAvgThisMonth = monthPulses / int(self.dayOfMonth) # Total so far / how many days into month
-					
+
 					hourAvg24 = hourAvg24 / 24
-					dayAvg31Days = month31Pulses / daysRunningCount # Total so far / how many days into month 
+					dayAvg31Days = month31Pulses / daysRunningCount # Total so far / how many days into month
 					#dayAvg31 / 31
-					
+
 					key_list_common = [
 					{"key":"hourCurrent","value":self.curPulses[d.id]},
 					{"key":self.hourOfDayState,"value":self.curPulses[d.id]},
@@ -277,10 +286,10 @@ class Plugin(indigo.PluginBase):
 					{"key":"dayOfMonth","value":self.dayOfMonth},
 					{"key":"daysRunning","value":daysRunningCount}
 					]
-					
+
 					#key_value_list = key_list1 + key_list2
 					#d.updateStatesOnServer(key_value_list)
-					
+
 					#if (self.timeSinceReset[d.id] % 3600 == 0): #Every hour, not on the hour
 					if (newHour):
 						key_list_hour = [
@@ -312,7 +321,7 @@ class Plugin(indigo.PluginBase):
 						]
 						#d.updateStatesOnServer(key_value_list)
 						self.curPulses[d.id] = 0
-						
+
 					if (newDay):
 						key_list_day = [
 						{"key":"dayMinus31","value":d.states["dayMinus30"]},
@@ -350,14 +359,14 @@ class Plugin(indigo.PluginBase):
 						]
 						#d.updateStatesOnServer(key_value_list)
 						#self.curPulses[d.id] = 0
-					
+
 					key_value_list = key_list_common + key_list_hour #Combine lists
 					d.updateStatesOnServer(key_value_list) #Only calls once to server
-					
+
 					stateToDisplay = d.ownerProps.get("stateToDisplay","")
 					if (stateToDisplay != ""):
 						d.updateStateOnServer("displayState",d.states[stateToDisplay])
-		
+
 				self.sleep(self.sleepTime)
 		except self.StopThread:
 			pass
